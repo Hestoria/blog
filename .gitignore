@@ -1,0 +1,10 @@
+# api
+api/target
+
+# web
+web/logs
+web/yarn-debug.log*
+web/yarn-error.log*
+web/node_modules
+web/dist
+web/dist-ssr

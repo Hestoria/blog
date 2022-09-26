@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+cd web
+
+npm run check-types || (
+    echo '❌ Failed type check. ❌';
+    false;
+)
+
+echo  ' 😇Prettier Formatting ... ';
+npm run check-format || (
+    echo '❌ Failed to run prettier format. ❌';
+    false;
+)
+
+npm run check-lint || (
+    echo '❌ Failed eslint check. ❌';
+    false;
+)
+
+echo '✅ Commiting ✅'

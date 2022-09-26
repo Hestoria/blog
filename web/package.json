@@ -8,10 +8,9 @@
 		"build": "tsc && vite build",
 		"preview": "vite preview",
 		"check-types": "tsc --pretty --noEmit",
-		"check-format": "prettier --check .",
-		"check-lint": "eslint . --ext ts --ext tsx --ext js",
-		"format": "prettier --write",
-		"prepare": "husky install"
+		"check-lint": "eslint . --max-warnings 0 --ext ts --ext tsx --ext js",
+		"check-format": "prettier --check . --write",
+		"prepare": "cd ../ && husky install ./web/.husky"
 	},
 	"dependencies": {
 		"react": "^18.2.0",
