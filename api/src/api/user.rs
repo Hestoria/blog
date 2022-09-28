@@ -17,7 +17,7 @@ pub struct UserIdentifier {
 
 #[get("/users")]
 pub async fn get_users() -> Json<String> {
-    return Json("userlist".to_string());
+    return Json("userlist!!!!!".to_string());
 }
 
 #[get("/user/{user_id}")]

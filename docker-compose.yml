@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./api
+      target: "planner"
+    ports:
+      - "8080:8080"
+    # depends_on:
+    #   - db
+    volumes:
+      - ./api:/usr/src/api
+      - cargo-cache:/usr/local/cargo/registry
+      - target-cache:/usr/src/api/target
+    command: /bin/sh -c "cargo watch -x run"
+
+volumes:
+  cargo-cache:
+  target-cache:
