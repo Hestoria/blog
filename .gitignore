@@ -8,3 +8,6 @@ web/yarn-error.log*
 web/node_modules
 web/dist
 web/dist-ssr
+
+#db
+pgdata

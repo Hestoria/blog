@@ -2,18 +2,33 @@ version: "3.9"
 
 services:
   backend:
+    container_name: api
     build:
       context: ./api
       target: "planner"
     ports:
       - "8080:8080"
-    # depends_on:
-    #   - db
+    depends_on:
+      - db
     volumes:
       - ./api:/usr/src/api
       - cargo-cache:/usr/local/cargo/registry
       - target-cache:/usr/src/api/target
     command: /bin/sh -c "cargo watch -x run"
+    image: actix:latest
+    links:
+      - db
+  db:
+    container_name: db
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: "actix"
+      POSTGRES_USER: "actix"
+      POSTGRES_DB: blog
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - 8000:5432
 
 volumes:
   cargo-cache:

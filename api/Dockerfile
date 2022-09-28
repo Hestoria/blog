@@ -1,6 +1,7 @@
 FROM rust:latest as planner
 WORKDIR /usr/src/api
 RUN cargo install cargo-watch
+RUN cargo install diesel_cli --no-default-features --features postgres
 COPY . .
 
 FROM planner as build
