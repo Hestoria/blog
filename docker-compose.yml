@@ -1,23 +1,6 @@
 version: "3.9"
 
 services:
-  backend:
-    container_name: api
-    build:
-      context: ./api
-      target: "planner"
-    ports:
-      - "8080:8080"
-    depends_on:
-      - db
-    volumes:
-      - ./api:/usr/src/api
-      - cargo-cache:/usr/local/cargo/registry
-      - target-cache:/usr/src/api/target
-    command: /bin/sh -c "cargo watch -x run"
-    image: actix:latest
-    links:
-      - db
   db:
     container_name: db
     image: postgres
@@ -29,6 +12,24 @@ services:
       - ./pgdata:/var/lib/postgresql/data
     ports:
       - 8000:5432
+  backend:
+    restart: on-failure
+    container_name: api
+    build:
+      context: ./api
+      target: "planner"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    links:
+      - db
+    volumes:
+      - ./api:/usr/src/api
+      - cargo-cache:/usr/local/cargo/registry
+      - target-cache:/usr/src/api/target
+    command: /bin/sh -c "diesel setup && diesel migration run && cargo watch -x run"
+    image: actix:latest
 
 volumes:
   cargo-cache:
