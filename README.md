@@ -2,7 +2,8 @@
 
 ## database
 
-- SurrealDB
+- psql
+- diesel orm
 
 ## backend
 
